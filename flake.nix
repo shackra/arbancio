@@ -27,6 +27,7 @@
           # Pinned packages available in the environment
           packages = with pkgs; [
             nodejs-18_x
+            typescript
             javascript-typescript-langserver
             curl
             jq
