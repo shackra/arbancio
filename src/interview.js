@@ -17,7 +17,7 @@ const interview = async (input = null) => {
     log(
       `${chalk.hex("#ffd654")(`⌥`)} ${chalk
         .hex("#f0b909")
-        .bold(`I have a few questions`)}`
+        .bold(`I have a few questions`)}`,
     );
   }
 
@@ -30,7 +30,7 @@ const interview = async (input = null) => {
   log(
     `${chalk.hex("#ffd654")(`⌥`)} ${chalk
       .hex("#f0b909")
-      .bold(`Collecting data for you`)}`
+      .bold(`Collecting data for you`)}`,
   );
 
   const ui = new inquirer.ui.BottomBar();
@@ -75,36 +75,36 @@ const interview = async (input = null) => {
 
   log(
     `🔗  ${chalk.grey("Transaction type")} ${chalk.bold(
-      answers.ticker
-    )} @ ${chalk.bold(answers.fiat)}`
+      answers.ticker,
+    )} @ ${chalk.bold(answers.fiat)}`,
   );
 
   log(
-    `💰  ${chalk.bold(totalPrices.length)} ${chalk.grey("People offering")} \n`
+    `💰  ${chalk.bold(totalPrices.length)} ${chalk.grey("People offering")} \n`,
   );
 
   log(
     `${chalk.hex("#ffd654")(`⌥`)} ${chalk
       .hex("#f0b909")
-      .bold(`Here I have the results`)}`
+      .bold(`Here I have the results`)}`,
   );
 
   log(
     `📉  ${chalk.grey("Minimum price")} 💵  ${chalk.bold(
-      totalPrices[minimun].toLocaleString()
-    )}`
+      totalPrices[minimun].toLocaleString(),
+    )}`,
   );
 
   log(
     `📊  ${chalk.grey("Median price")}  💵  ✨ ${chalk.bold(
-      median(totalPrices).toLocaleString()
-    )}✨`
+      median(totalPrices).toLocaleString(),
+    )}✨`,
   );
 
   log(
     `📈  ${chalk.grey("Maximum price")} 💵  ${chalk.bold(
-      totalPrices[maximun].toLocaleString()
-    )} \n`
+      totalPrices[maximun].toLocaleString(),
+    )} \n`,
   );
 
   thanks();

@@ -53,8 +53,6 @@ function fetchP2PData(
     req.write(stringData);
     req.end();
   });
-
-  thanks();
 }
 
 module.exports = fetchP2PData;
