@@ -5,7 +5,8 @@ function fetchP2PData(
   fiat = "ARS",
   tradeType = "BUY",
   asset = "USDT",
-  payTypes = []
+  payTypes = [],
+  countries = [],
 ) {
   return new Promise((resolve, reject) => {
     const baseObj = {
@@ -16,6 +17,7 @@ function fetchP2PData(
       tradeType,
       fiat,
       payTypes,
+      countries,
     };
 
     const stringData = JSON.stringify(baseObj);
