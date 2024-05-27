@@ -1,8 +1,7 @@
 const { hasUndefinedProp } = require("../src/utils/commandValidations.js");
-const gathering = require("./gather.js");
+const { median } = require("./gather.js");
 const QUESTIONS = require("./constants/questions.js");
 const presentation = require("./presentation.js");
-const median = require("./utils/median.js");
 const thanks = require("./thanks.js");
 const inquirer = require("inquirer");
 const chalk = require("chalk");
@@ -41,7 +40,7 @@ const interview = async (input = null) => {
     );
   };
 
-  const results = await gathering(
+  const result = await median(
     answers.fiat,
     answers.operation,
     answers.ticker,
@@ -50,20 +49,13 @@ const interview = async (input = null) => {
     onPageChanged,
   );
 
-  results.map((obj) => totalPrices.push(parseFloat(obj.adv.price)));
-
-  const minimun = answers.operation === "SELL" ? totalPrices.length - 1 : 0;
-  const maximun = answers.operation === "SELL" ? 0 : totalPrices.length - 1;
-
   log(
     `🔗  ${chalk.grey("Transaction type")} ${chalk.bold(
       answers.ticker,
     )} @ ${chalk.bold(answers.fiat)}`,
   );
 
-  log(
-    `💰  ${chalk.bold(totalPrices.length)} ${chalk.grey("People offering")} \n`,
-  );
+  log(`💰  ${chalk.bold(result.offering)} ${chalk.grey("People offering")} \n`);
 
   log(
     `${chalk.hex("#ffd654")(`⌥`)} ${chalk
@@ -71,22 +63,14 @@ const interview = async (input = null) => {
       .bold(`Here I have the results`)}`,
   );
 
+  log(`📉  ${chalk.grey("Minimum price")} 💵  ${chalk.bold(result.minimum)}`);
+
   log(
-    `📉  ${chalk.grey("Minimum price")} 💵  ${chalk.bold(
-      totalPrices[minimun].toLocaleString(),
-    )}`,
+    `📊  ${chalk.grey("Median price")}  💵  ✨ ${chalk.bold(result.median)}✨`,
   );
 
   log(
-    `📊  ${chalk.grey("Median price")}  💵  ✨ ${chalk.bold(
-      median(totalPrices).toLocaleString(),
-    )}✨`,
-  );
-
-  log(
-    `📈  ${chalk.grey("Maximum price")} 💵  ${chalk.bold(
-      totalPrices[maximun].toLocaleString(),
-    )} \n`,
+    `📈  ${chalk.grey("Maximum price")} 💵  ${chalk.bold(result.maximun)} \n`,
   );
 
   thanks();

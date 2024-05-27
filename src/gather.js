@@ -1,4 +1,5 @@
 const fetchP2PData = require("./utils/fetchP2PData.js");
+const medianCalc = require("./utils/median.js");
 
 const gathering = async (
   currency,
@@ -42,4 +43,38 @@ const gathering = async (
   });
 };
 
-module.exports = gathering;
+const median = async (
+  currency,
+  operation,
+  ticker,
+  payTypes,
+  countries,
+  onPageChange,
+) => {
+  let totalPrices = [];
+
+  const results = await gathering(
+    currency,
+    operation,
+    ticker,
+    payTypes,
+    countries,
+    onPageChange,
+  );
+
+  results.map((obj) => totalPrices.push(parseFloat(obj.adv.price)));
+
+  const minimun = operation === "SELL" ? totalPrices.length - 1 : 0;
+  const maximun = operation === "SELL" ? 0 : totalPrices.length - 1;
+
+  return new Promise((resolve) => {
+    resolve({
+      minimum: totalPrices[minimun].toLocaleString(),
+      maximun: totalPrices[maximun].toLocaleString(),
+      median: medianCalc(totalPrices),
+      offering: totalPrices.length,
+    });
+  });
+};
+
+module.exports = { gathering, median };
